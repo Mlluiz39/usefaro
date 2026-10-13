@@ -1,0 +1,6 @@
+{
+  "name": "Guia de Campo",
+  "description": "Caderno confidencial de prospecção local e consulta investigativa de empresas com fichas, filtros e análise de presença digital.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

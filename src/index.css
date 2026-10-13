@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@theme {
+  --color-papel: #F2EBDD;
+  --color-papel-card: #FDF9F3;
+  --color-papel-container: #F8F3ED;
+  --color-papel-muted: #E8DFC8;
+  --color-papel-kraft: #D8C5A5;
+  --color-tinta: #1B1A17;
+  --color-tomate: #E8431F;
+  --color-mostarda: #D9A21B;
+  --color-musgo: #2F4A3A;
+
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "IBM Plex Mono", Menlo, monospace;
+  --font-sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:root {
+  --bg-papel: #F2EBDD;
+  --bg-card: #FDF9F3;
+  --bg-container: #F8F3ED;
+  --bg-muted: #E8DFC8;
+  --text-tinta: #1B1A17;
+  --border-tinta: #1B1A17;
+  --color-tomate-val: #E8431F;
+  --color-mostarda-val: #D9A21B;
+  --color-musgo-val: #2F4A3A;
+}
+
+:root.dark-kraft {
+  --bg-papel: #1E1C19;
+  --bg-card: #282520;
+  --bg-container: #332F28;
+  --bg-muted: #423D34;
+  --text-tinta: #EDE5D6;
+  --border-tinta: #EDE5D6;
+  --color-tomate-val: #FF5A36;
+  --color-mostarda-val: #E5AC26;
+  --color-musgo-val: #4C755E;
+}
+
+body {
+  background-color: var(--bg-papel);
+  color: var(--text-tinta);
+  font-family: "Instrument Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  background-image: radial-gradient(var(--text-tinta) 0.5px, transparent 0.5px);
+  background-size: 18px 18px;
+  background-position: 0 0;
+}
+
+/* Hard ink shadows */
+.hard-shadow {
+  box-shadow: 4px 4px 0 var(--border-tinta);
+}
+
+.hard-shadow-sm {
+  box-shadow: 2px 2px 0 var(--border-tinta);
+}
+
+.hard-shadow-lg {
+  box-shadow: 6px 6px 0 var(--border-tinta);
+}
+
+.hard-shadow-tomate {
+  box-shadow: 3px 3px 0 var(--color-tomate-val);
+}
+
+/* Rubber stamps */
+.stamp-alta {
+  border: 2.5px double var(--color-tomate-val);
+  color: var(--color-tomate-val);
+  transform: rotate(-3deg);
+  display: inline-block;
+  letter-spacing: 0.12em;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.stamp-media {
+  border: 2.5px double var(--color-mostarda-val);
+  color: var(--color-mostarda-val);
+  transform: rotate(2deg);
+  display: inline-block;
+  letter-spacing: 0.12em;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.stamp-baixa {
+  border: 2px solid var(--text-tinta);
+  opacity: 0.85;
+  color: var(--text-tinta);
+  transform: rotate(-1.5deg);
+  display: inline-block;
+  letter-spacing: 0.1em;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Masking tape accent */
+.tape-accent {
+  background: rgba(235, 230, 210, 0.88);
+  border: 1px dashed rgba(27, 26, 23, 0.25);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+.dark-kraft .tape-accent {
+  background: rgba(90, 80, 68, 0.7);
+  border-color: rgba(237, 229, 214, 0.25);
+}
+
+/* Highlighter wash */
+.highlighter-wash {
+  background: linear-gradient(104deg, rgba(217, 162, 27, 0.05) 0.5%, rgba(217, 162, 27, 0.45) 2.5%, rgba(217, 162, 27, 0.45) 96%, rgba(217, 162, 27, 0.05) 99.5%);
+  padding: 1px 4px;
+  display: inline;
+}
+
+/* Lined notebook styling */
+.notebook-lines {
+  background-size: 100% 28px;
+  background-image: linear-gradient(to bottom, transparent 27px, rgba(27, 26, 23, 0.15) 28px);
+  line-height: 28px;
+}
+
+.dark-kraft .notebook-lines {
+  background-image: linear-gradient(to bottom, transparent 27px, rgba(237, 229, 214, 0.15) 28px);
+}
+
+/* Perforated tear line */
+.tear-line {
+  border-bottom: 2px dashed var(--border-tinta);
+}
+
+/* Touch targets */
+.touch-target {
+  min-height: 48px;
+  min-width: 48px;
+}
