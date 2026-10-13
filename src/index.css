@@ -28,7 +28,7 @@
   --color-musgo-val: #2F4A3A;
 }
 
-:root.dark-kraft {
+:root.dark {
   --bg-papel: #1E1C19;
   --bg-card: #282520;
   --bg-container: #332F28;
@@ -111,7 +111,7 @@ body {
   pointer-events: none;
 }
 
-.dark-kraft .tape-accent {
+.dark .tape-accent {
   background: rgba(90, 80, 68, 0.7);
   border-color: rgba(237, 229, 214, 0.25);
 }
@@ -130,7 +130,7 @@ body {
   line-height: 28px;
 }
 
-.dark-kraft .notebook-lines {
+.dark .notebook-lines {
   background-image: linear-gradient(to bottom, transparent 27px, rgba(237, 229, 214, 0.15) 28px);
 }
 

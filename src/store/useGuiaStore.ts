@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { get, set, del } from 'idb-keyval';
 import { Ficha, FiltrosState, ModoConciliacao, OrdenacaoTipo, Prioridade, TipoVisualizacao } from '../types';
-import { FICHAS_EXEMPLO } from '../lib/dadosExemplo';
+
 
 const IDB_FICHAS_KEY = 'guia_campo_fichas_v1';
 const IDB_NOTAS_RONDA_KEY = 'guia_campo_notas_ronda_v1';
-const IDB_TEMA_KEY = 'guia_campo_tema_kraft_v1';
+const IDB_TEMA_KEY = 'guia_campo_tema_dark_v1';
 
 export const FILTROS_INICIAIS: FiltrosState = {
   busca: '',
@@ -88,9 +88,7 @@ const listeners = new Set<Listener>();
 
 // Estado interno mantido em memória
 let stateFichas: Ficha[] = [];
-let stateNotasRonda: string = `1. Priorizar clínicas odontológicas com nota > 4.6 sem anúncios.
-2. Testar abordagem do roteiro B (foco em custos ocultos de cliques).
-3. Verificar taxa de conversão pós-almoço na região Tatuapé e Pinheiros.`;
+let stateNotasRonda: string = '';
 let stateTemaKraft: boolean = false;
 let stateFiltros: FiltrosState = { ...FILTROS_INICIAIS, ...carregarFiltrosDaUrl() };
 let stateFichaSelecionadaId: string | null = null;
@@ -114,13 +112,12 @@ export async function inicializarGuiaStore(): Promise<void> {
     if (fichasSalvas && Array.isArray(fichasSalvas) && fichasSalvas.length > 0) {
       stateFichas = fichasSalvas;
     } else {
-      // Primeira execução: carrega as fichas exemplo fictícias
-      stateFichas = FICHAS_EXEMPLO;
-      await set(IDB_FICHAS_KEY, FICHAS_EXEMPLO);
+      // Primeira execução: começa com lista vazia
+      stateFichas = [];
     }
 
     const notas = await get<string>(IDB_NOTAS_RONDA_KEY);
-    if (notas !== undefined) {
+    if (typeof notas === 'string') {
       stateNotasRonda = notas;
     }
 
@@ -128,7 +125,16 @@ export async function inicializarGuiaStore(): Promise<void> {
     if (tema !== undefined) {
       stateTemaKraft = tema;
       if (typeof document !== 'undefined') {
-        document.documentElement.classList.toggle('dark-kraft', tema);
+        document.documentElement.classList.toggle('dark', tema);
+      }
+    } else {
+      // Detectar preferência do sistema operacional
+      if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        stateTemaKraft = true;
+        document.documentElement.classList.add('dark');
+        // Salvar preferência detectada
+        await set(IDB_TEMA_KEY, true);
+        try { localStorage.setItem(IDB_TEMA_KEY, 'true'); } catch {}
       }
     }
 
@@ -142,7 +148,7 @@ export async function inicializarGuiaStore(): Promise<void> {
     }
   } catch (err) {
     console.error('Erro ao inicializar IndexedDB:', err);
-    stateFichas = FICHAS_EXEMPLO;
+    stateFichas = [];
   } finally {
     inicializado = true;
     emitChange();
@@ -289,11 +295,6 @@ export function useGuiaStore() {
     []
   );
 
-  const carregarExemplo = useCallback(async () => {
-    stateFichas = FICHAS_EXEMPLO;
-    await set(IDB_FICHAS_KEY, FICHAS_EXEMPLO);
-    emitChange();
-  }, []);
 
   const limparTudo = useCallback(async () => {
     stateFichas = [];
@@ -306,8 +307,10 @@ export function useGuiaStore() {
   const alternarTemaKraft = useCallback(async () => {
     stateTemaKraft = !stateTemaKraft;
     await set(IDB_TEMA_KEY, stateTemaKraft);
+    // Sincronizar também no localStorage para o script anti-flash no index.html
+    try { localStorage.setItem(IDB_TEMA_KEY, String(stateTemaKraft)); } catch {}
     if (typeof document !== 'undefined') {
-      document.documentElement.classList.toggle('dark-kraft', stateTemaKraft);
+      document.documentElement.classList.toggle('dark', stateTemaKraft);
     }
     emitChange();
   }, []);
@@ -340,7 +343,6 @@ export function useGuiaStore() {
     salvarAnotacaoFicha,
     salvarNotasRonda,
     importarLote,
-    carregarExemplo,
     limparTudo,
     alternarTemaKraft,
     fecharToast,

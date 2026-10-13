@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGuiaStore } from '../../store/useGuiaStore';
-import { Target, Search, ArrowRight, Upload, Sparkles, BookOpen } from 'lucide-react';
+import { Target, Search, ArrowRight, Upload, BookOpen } from 'lucide-react';
 import { FitaAdesiva } from '../../components/FitaAdesiva';
 import { CarimboPrioridade } from '../../components/CarimboPrioridade';
 
@@ -15,7 +15,6 @@ export const CapaView: React.FC<Props> = ({ onVerTodasFichas }) => {
     setFiltros,
     selecionarFicha,
     setModalImportacao,
-    carregarExemplo,
   } = useGuiaStore();
 
   const fichasAtivas = fichas.filter((f) => !f.descartada);
@@ -222,13 +221,14 @@ export const CapaView: React.FC<Props> = ({ onVerTodasFichas }) => {
           <div className="p-6 border-2 border-dashed border-[#1B1A17] bg-[#F8F3ED] text-center space-y-3">
             <p className="font-serif text-lg text-[#1B1A17]">Nenhuma ficha cadastrada ainda.</p>
             <p className="text-xs text-[#1B1A17]/70">
-              Importe uma planilha ou carregue os dados de exemplo de São Paulo.
+              Importe sua planilha para começar.
             </p>
             <button
-              onClick={carregarExemplo}
-              className="bg-[#D9A21B] text-[#1B1A17] border-2 border-[#1B1A17] px-4 py-2 font-mono text-xs font-bold uppercase hard-shadow-sm"
+              onClick={() => setModalImportacao(true)}
+              className="bg-[#1B1A17] text-white border-2 border-[#1B1A17] px-4 py-2 font-mono text-xs font-bold uppercase hard-shadow-sm flex items-center gap-2 mx-auto"
             >
-              Carregar 8 Fichas de Exemplo
+              <Upload className="w-4 h-4" />
+              Importar Planilha
             </button>
           </div>
         ) : (
@@ -343,15 +343,6 @@ export const CapaView: React.FC<Props> = ({ onVerTodasFichas }) => {
               >
                 <Upload className="w-4 h-4" />
                 <span>Importar Planilha (CSV/XLSX/JSON)</span>
-              </button>
-
-              <button
-                onClick={carregarExemplo}
-                className="bg-[#FDF9F3] text-[#1B1A17] border-2 border-[#1B1A17] py-2.5 px-3 font-mono text-xs uppercase font-bold tracking-wider hard-shadow-sm active:translate-x-[1px] active:translate-y-[1px] flex items-center justify-center gap-2 cursor-pointer"
-                title="Carregar 8 estabelecimentos reais do comércio de São Paulo"
-              >
-                <Sparkles className="w-4 h-4 text-[#D9A21B]" />
-                <span>Exemplo SP (8 Fichas)</span>
               </button>
             </div>
           </div>

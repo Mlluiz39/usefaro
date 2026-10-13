@@ -4,7 +4,6 @@ import { exportarCSV, exportarJSON } from '../../lib/exporters';
 import {
   X,
   Trash2,
-  Sparkles,
   Sun,
   Moon,
   Download,
@@ -18,7 +17,6 @@ export const ConfiguracoesModal: React.FC = () => {
     modalConfigAberto,
     setModalConfig,
     limparTudo,
-    carregarExemplo,
     temaKraft,
     alternarTemaKraft,
   } = useGuiaStore();
@@ -53,7 +51,7 @@ export const ConfiguracoesModal: React.FC = () => {
           {/* 1. Tema Visual */}
           <div className="border border-[#1B1A17] p-3 bg-[#FDF9F3] dark:bg-[#282520] space-y-2">
             <span className="font-bold uppercase text-[10px] text-[#1B1A17]/70 dark:text-[#EDE5D6]/70 block">
-              ESTILO VISUAL DO PAPEL:
+              TEMA DA INTERFACE:
             </span>
             <div className="flex gap-2">
               <button
@@ -67,7 +65,7 @@ export const ConfiguracoesModal: React.FC = () => {
                 }`}
               >
                 <Sun className="w-4 h-4" />
-                <span>Papel Claro (#F2EBDD)</span>
+                <span>Modo Claro</span>
               </button>
 
               <button
@@ -81,7 +79,7 @@ export const ConfiguracoesModal: React.FC = () => {
                 }`}
               >
                 <Moon className="w-4 h-4" />
-                <span>Kraft Escuro</span>
+                <span>Modo Escuro</span>
               </button>
             </div>
           </div>
@@ -91,17 +89,6 @@ export const ConfiguracoesModal: React.FC = () => {
             <span className="font-bold uppercase text-[10px] text-[#1B1A17]/70 dark:text-[#EDE5D6]/70 block">
               DADOS E ACERVO:
             </span>
-
-            <button
-              onClick={async () => {
-                await carregarExemplo();
-                setModalConfig(false);
-              }}
-              className="w-full py-2 px-3 bg-[#D9A21B] text-[#1B1A17] border border-[#1B1A17] font-bold uppercase hard-shadow-sm active:translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Restaurar 8 Fichas de Exemplo (SP)</span>
-            </button>
 
             <div className="flex gap-2 pt-1">
               <button

@@ -20,7 +20,6 @@ import {
   AlertTriangle,
   CheckCircle,
   FileText,
-  Sparkles,
   Download,
   Scissors,
   ArrowRight,
@@ -33,7 +32,6 @@ export const ImportacaoModal: React.FC = () => {
     modalImportacaoAberto,
     setModalImportacao,
     importarLote,
-    carregarExemplo,
   } = useGuiaStore();
 
   const [passo, setPasso] = useState<1 | 2 | 3>(1);
@@ -348,29 +346,6 @@ export const ImportacaoModal: React.FC = () => {
                 >
                   <Upload className="w-4 h-4" />
                   <span>{carregando ? 'Lendo arquivo...' : 'ESCOLHER ARQUIVO DO DISPOSITIVO'}</span>
-                </button>
-              </div>
-
-              {/* Opção Rápida de Carregar Exemplo */}
-              <div className="border border-[#1B1A17] bg-[#F8F3ED] dark:bg-[#282520] p-3 flex items-center justify-between">
-                <div>
-                  <div className="font-mono text-xs font-bold text-[#1B1A17] dark:text-[#EDE5D6] flex items-center gap-1">
-                    <Sparkles className="w-4 h-4 text-[#D9A21B]" />
-                    <span>Prefere testar sem planilha?</span>
-                  </div>
-                  <p className="text-[11px] text-[#1B1A17]/70 dark:text-[#EDE5D6]/70 mt-0.5">
-                    Carregue 8 fichas reais de dentista, pizzaria, academia e adega em São Paulo.
-                  </p>
-                </div>
-
-                <button
-                  onClick={async () => {
-                    await carregarExemplo();
-                    setModalImportacao(false);
-                  }}
-                  className="bg-[#D9A21B] text-[#1B1A17] border border-[#1B1A17] px-3 py-1.5 font-mono text-xs font-bold uppercase hard-shadow-sm active:translate-y-0.5 cursor-pointer shrink-0 ml-2"
-                >
-                  Carregar Exemplo
                 </button>
               </div>
 

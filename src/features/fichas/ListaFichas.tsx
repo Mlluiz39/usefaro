@@ -24,7 +24,6 @@ export const ListaFichas: React.FC<Props> = ({ apenasSeparadas = false }) => {
     filtros,
     setFiltros,
     setModalFiltros,
-    carregarExemplo,
     setModalImportacao,
   } = useGuiaStore();
 
@@ -375,10 +374,10 @@ export const ListaFichas: React.FC<Props> = ({ apenasSeparadas = false }) => {
 
             {fichas.length === 0 && (
               <button
-                onClick={carregarExemplo}
+                onClick={() => setModalImportacao(true)}
                 className="bg-[#D9A21B] text-[#1B1A17] border-2 border-[#1B1A17] px-4 py-2 font-mono text-xs font-bold uppercase hard-shadow-sm cursor-pointer"
               >
-                Carregar 8 Fichas de Exemplo
+                Importar Planilha
               </button>
             )}
           </div>
